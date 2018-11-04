@@ -10,14 +10,17 @@ namespace SpeedTestLogger
         public readonly string UserId;
         public readonly int LoggerId;
         public readonly RegionInfo LoggerLocation;
+        public readonly Uri ApiUrl;
 
         public LoggerConfiguration()
         {
+            
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");
 
             var configuration = builder.Build();
+            ApiUrl = new Uri(configuration["speedTestApiUrl"]);
 
             var countryCode = configuration["loggerLocationCountryCode"];
             LoggerLocation = new RegionInfo(countryCode);
